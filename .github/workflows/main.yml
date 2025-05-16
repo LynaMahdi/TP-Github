@@ -48,28 +48,28 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-http-server:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
-sonarcloud-analysis:
-  needs: test-backend
-  runs-on: ubuntu-24.04
-  steps:
-    - uses: actions/checkout@v4
+  sonarcloud-analysis:
+    needs: test-backend
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
 
-    - name: Run SonarCloud analysis
-      uses: sonarsource/sonarcloud-github-action@v1
-      with:
-        organization: lynamahdi
-        projectKey: LynaMahdi_TP-Github
-        projectName: TP-Github
-        token: ${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          organization: lynamahdi
+          projectKey: LynaMahdi_TP-Github
+          projectName: TP-Github
+          token: ${{ secrets.SONAR_TOKEN }}
