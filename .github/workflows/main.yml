@@ -69,9 +69,11 @@ jobs:
           key: ${{ runner.os }}-sonar
 
       - name: Run SonarCloud analysis
-        run: mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=LynaMahdi_TP-Github \
-          -Dsonar.organization=lynamahdi \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          --file ./simple-api/pom.xml
+        run: |
+          cd simple-api
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=LynaMahdi_TP-Github \
+            -Dsonar.organization=lynamahdi \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
